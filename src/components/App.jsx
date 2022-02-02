@@ -108,35 +108,13 @@ class App extends Component {
   render() {
     const { images, status, showModal, modalLargeImage, modalLargeAlt } = this.state;
 
-    if (status === 'idle') {
-      return (
-        <>
-          <GlobalStyle />
-          <AppStyled>
-            <SearchBar onSubmit={this.handleSubmit} />
-          </AppStyled>
-        </>
-      );
-    }
-
-    if (status === 'pending') {
-      return (
-        <>
-          <GlobalStyle />
-          <AppStyled>
-            <SearchBar onSubmit={this.handleSubmit} />
-            <Loader />
-          </AppStyled>
-        </>
-      );
-    }
-
-    if (status === 'rejected') {
-      return (
-        <>
-          <GlobalStyle />
-          <AppStyled>
-            <SearchBar onSubmit={this.handleSubmit} />
+    return (
+      <>
+        <GlobalStyle />
+        <AppStyled>
+          <SearchBar onSubmit={this.handleSubmit} />
+          {status === 'pending' ? <Loader /> : null}
+          {status === 'rejected' ? (
             <ToastContainer
               position="top-center"
               autoClose={3000}
@@ -145,26 +123,77 @@ class App extends Component {
               closeOnClick
               rtl={false}
             />
-          </AppStyled>
-        </>
-      );
-    }
+          ) : null}
+          {status === 'resolved' ? (
+            <>
+              <ImageGallery data={images} onClick={this.handleOpenModal} />
+              <Button onClick={this.handleButtonClick} />
+            </>
+          ) : null}
+        </AppStyled>
+        {showModal && (
+          <Modal src={modalLargeImage} alt={modalLargeAlt} onClose={this.toggleModal} />
+        )}
+      </>
+    );
 
-    if (status === 'resolved') {
-      return (
-        <>
-          <GlobalStyle />
-          <AppStyled>
-            <SearchBar onSubmit={this.handleSubmit} />
-            <ImageGallery data={images} onClick={this.handleOpenModal} />
-            <Button onClick={this.handleButtonClick} />
-          </AppStyled>
-          {showModal && (
-            <Modal src={modalLargeImage} alt={modalLargeAlt} onClose={this.toggleModal} />
-          )}
-        </>
-      );
-    }
+    //   if (status === 'idle') {
+    //     return (
+    //       <>
+    //         <GlobalStyle />
+    //         <AppStyled>
+    //           <SearchBar onSubmit={this.handleSubmit} />
+    //         </AppStyled>
+    //       </>
+    //     );
+    //   }
+
+    //   if (status === 'pending') {
+    //     return (
+    //       <>
+    //         <GlobalStyle />
+    //         <AppStyled>
+    //           <SearchBar onSubmit={this.handleSubmit} />
+    //           <Loader />
+    //         </AppStyled>
+    //       </>
+    //     );
+    //   }
+
+    //   if (status === 'rejected') {
+    //     return (
+    //       <>
+    //         <GlobalStyle />
+    //         <AppStyled>
+    //           <SearchBar onSubmit={this.handleSubmit} />
+    //           <ToastContainer
+    //             position="top-center"
+    //             autoClose={3000}
+    //             hideProgressBar={false}
+    //             newestOnTop={false}
+    //             closeOnClick
+    //             rtl={false}
+    //           />
+    //         </AppStyled>
+    //       </>
+    //     );
+    //   }
+
+    //   if (status === 'resolved') {
+    //     return (
+    //       <>
+    //         <GlobalStyle />
+    //         <AppStyled>
+    //           <SearchBar onSubmit={this.handleSubmit} />
+    //           <ImageGallery data={images} onClick={this.handleOpenModal} />
+    //           <Button onClick={this.handleButtonClick} />
+    //         </AppStyled>
+    //         {showModal && (
+    //           <Modal src={modalLargeImage} alt={modalLargeAlt} onClose={this.toggleModal} />
+    //         )}
+    //       </>
+    //     );
+    //   }
   }
 }
 
