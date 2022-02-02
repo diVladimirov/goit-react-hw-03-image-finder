@@ -107,7 +107,6 @@ class App extends Component {
 
   render() {
     const { images, status, showModal, modalLargeImage, modalLargeAlt } = this.state;
-
     return (
       <>
         <GlobalStyle />
@@ -124,12 +123,12 @@ class App extends Component {
               rtl={false}
             />
           ) : null}
-          {status === 'resolved' ? (
+          {images.length > 0 && (
             <>
               <ImageGallery data={images} onClick={this.handleOpenModal} />
               <Button onClick={this.handleButtonClick} />
             </>
-          ) : null}
+          )}
         </AppStyled>
         {showModal && (
           <Modal src={modalLargeImage} alt={modalLargeAlt} onClose={this.toggleModal} />
@@ -198,3 +197,10 @@ class App extends Component {
 }
 
 export default App;
+
+// {status === 'resolved' ? (
+//   <>
+//     <ImageGallery data={images} onClick={this.handleOpenModal} />
+//     <Button onClick={this.handleButtonClick} />
+//   </>
+// ) : null}

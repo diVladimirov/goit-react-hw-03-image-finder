@@ -27,11 +27,8 @@ class SearchBar extends Component {
     if (this.state.inputToFind.toLowerCase().trim() === '') {
       return;
     }
+    console.log(this.state.inputToFind);
     this.props.onSubmit(this.state.inputToFind);
-    this.resetForm();
-  };
-
-  resetForm = () => {
     this.setState({ inputToFind: '' });
   };
 
@@ -50,6 +47,7 @@ class SearchBar extends Component {
             placeholder="Search images and photos"
             name="inputToFind"
             onChange={this.handleInputChange}
+            value={this.state.inputToFind}
           />
         </SearchForm>
       </Header>
